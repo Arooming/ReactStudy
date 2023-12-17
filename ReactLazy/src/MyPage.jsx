@@ -1,5 +1,6 @@
-import { useState } from "react";
-import UserInfo from "./UserInfo";
+import { Suspense, lazy, useState } from "react";
+
+const UserInfo = lazy(() => import("./UserInfo"));
 
 const MyPage = () => {
   const [showInfo, setShowInfo] = useState(false);
@@ -9,7 +10,7 @@ const MyPage = () => {
       <button onClick={() => setShowInfo((prev) => !prev)}>
         Show UserInfo
       </button>
-      {showInfo && <UserInfo />}
+      <Suspense fallback={<div>...Loading</div>} >{showInfo && <UserInfo />}</Suspense>
     </div>
   );
 };
